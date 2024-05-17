@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Blog: Homepage</title>
+    <!-- nhúng font chữ -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Nhúng css  -->
+    <link href="css/home.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Thanh đầu cùng: luôn luôn dùng <nav></nav> -->
+    <!-- blog-navbar -->
+    <nav class="navbar">
+      <img src="img/logo.png" class="logo" alt="brand" />
+      <ul class="links-container">
+        <li class="link-item"><a href="/" class="link">home</a></li>
+        <li class="link-item"><a href="/editor" class="link">editor</a></li>
+      </ul>
+    </nav>
+
+    <!-- blog-header -->
+    <header class="header">
+      <div class="content">
+        <h1 class="heading">
+          <span class="small">Welcome in the world of</span>
+          blog
+          <span class="no-fill">writting</span>
+        </h1>
+        <a href="/editor" class="btn">write a blog</a>
+      </div>
+    </header>
+
+    <!-- blog-section -->
+    <section class="blogs-section">
+      <div class="blog-card">
+        <img src="img/home-bg.jpg" alt="" class="blog-image" />
+        <h1 class="blog-title">Lorem ipsum dolor sit amet consectetur.</h1>
+        <p class="blog-overview">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </p>
+        <a href="/" class="btn dark">read</a>
+      </div>
+    </section>
+  </body>
+</html>
