@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="" rel="stylesheet" />
+    <title>Blog: Editor</title>
+
+    <!-- Nhúng css  -->
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/edit.css" />
+  </head>
+  <body>
+    <!-- Dùng để đăng ảnh banner (ảnh chính) của blog -->
+    <div class="banner">
+      <!-- Sử dụng thuộc tính "accept" để chỉ có thể truy cập image (hình ảnh) -->
+      <!-- hidden: Ẩn thẻ input này bằng cách sử dụng thuộc tính "hidden" -->
+      <input type="file" accept="image/*" id="banner-upload" hidden />
+      <!-- Sử dụng thẻ label thì liên kết trực tiếp với thẻ input bằng thuộc tính for / Và cho phép tích hợp với image -->
+      <label for="banner-upload" class="banner-upload-btn">
+        <img src="img/upload.png" alt="upload banner" />
+      </label>
+    </div>
+
+    <!-- Thành phần chính trong blog -->
+    <div class="blog">
+      <textarea
+        type="text"
+        class="title"
+        placeholder="Blog title ..."
+      ></textarea>
+      <textarea
+        type="text"
+        class="article"
+        placeholder="Start writing here ..."
+      ></textarea>
+    </div>
+
+    <!-- Nút nhấn publish và upload image -->
+    <div class="blog-options">
+      <button class="btn dark publish-btn">publish</button>
+      <input type="file" accept="image/*" id="image-upload" hidden />
+      <label for="image-upload" class="btn grey upload-btn">upload image</label>
+    </div>
+  </body>
+</html>
