@@ -101,6 +101,7 @@ publishBtn.addEventListener("click", () => {
       publishedAt: `${date.getDate()} ${
         months[date.getMonth()]
       } ${date.getFullYear()}`,
+      author: auth.currentUser.email.split("@")[0], // this will return ["example", "gmail.com"]
     })
     .then(() => {
       // redirect người dùng tới trang blog vừa tạo
@@ -109,4 +110,11 @@ publishBtn.addEventListener("click", () => {
     .catch((err) => {
       console.error(err);
     });
+});
+
+// checking for user logged in or not
+auth.onAuthStateChanged((user) => {
+  if (!user) {
+    location.replace("/admin"); // this will re-direct to admin route if no one is logged in
+  }
 });
