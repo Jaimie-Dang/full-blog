@@ -30,6 +30,17 @@ const setupBlog = (data) => {
 
   publish.innerHTML += ` -- ${data.author}`;
 
+  // check author
+  try {
+    if (data.author == auth.currentUser.email.split("@")[0]) {
+      let editBtn = document.getElementById("edit-blog-btn");
+      editBtn.style.display = "inline";
+      editBtn.href = `${blogId}/editor`;
+    }
+  } catch (error) {
+    // do nothing here
+  }
+
   // format the article for that create another function
   const article = document.querySelector(".article");
   addArticle(article, data.article);

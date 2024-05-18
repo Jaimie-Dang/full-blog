@@ -96,6 +96,7 @@ body {
 }
 
 .blogs-section {
+  word-break: break-word;
   /* set độ rộng cho grid 100% là toàn màn hình*/
   width: 100%;
   padding: 50px 5vw;
