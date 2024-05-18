@@ -28,6 +28,8 @@ const setupBlog = (data) => {
 
   publish.innerHTML += data.publishedAt;
 
+  publish.innerHTML += ` -- ${data.author}`;
+
   // format the article for that create another function
   const article = document.querySelector(".article");
   addArticle(article, data.article);
