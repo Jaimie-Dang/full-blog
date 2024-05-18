@@ -7,7 +7,7 @@ const banner = document.querySelector(".banner");
 let bannerPath;
 
 // button
-const publicBtn = document.querySelector(".publish-btn");
+const publishBtn = document.querySelector(".publish-btn");
 const uploadInput = document.querySelector("#image-upload"); // input
 
 // Tạo sự kiện
@@ -43,6 +43,9 @@ const uploadImage = (uploadFile, uploadType) => {
           banner.style.backgroundImage = `url("${bannerPath}")`;
         }
       });
+  } else {
+    // thêm alert cho image upload
+    alert("upload image only");
   }
 };
 
