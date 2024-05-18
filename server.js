@@ -51,6 +51,10 @@ app.get("/:blog", (req, res) => {
   res.sendFile(path.join(initial_path, "blog.html"));
 });
 
+app.get("/:blog/editor", (req, res) => {
+  res.sendFile(path.join(initial_path, "editor.html"));
+});
+
 // Tạo 404 route
 app.use((req, res) => {
   res.json("404");

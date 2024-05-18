@@ -77,39 +77,46 @@ let months = [
 ];
 
 publishBtn.addEventListener("click", () => {
-  // generating id
-  let letters = "aabcfrgiwr";
-  let blogTitle = blogTitleField.value.split(" ").join("-");
-  let id = "";
-  for (let i = 0; i < 4; i++) {
-    // Math.floor: dùng để làm tròn số thập phân
-    id += letters[Math.floor(Math.random() * letters.length)];
+  if (articleField.value.length && blogTitleField.value.length) {
+    let docName;
+    if (blogID[0] == "editor") {
+      // generating id
+      let letters = "aabcfrgiwr";
+      let blogTitle = blogTitleField.value.split(" ").join("-");
+      let id = "";
+      for (let i = 0; i < 4; i++) {
+        // Math.floor: dùng để làm tròn số thập phân
+        id += letters[Math.floor(Math.random() * letters.length)];
+      }
+      // Setting up docName: cần phải có trong database
+      docName = `${blogTitle}-${id}`;
+    } else {
+      docName = decodeURI(blogID[0]);
+    }
+
+    let date = new Date(); // for published at info
+
+    // truy cập firebase với biến db
+    db.collection("blogs")
+      .doc(docName)
+      .set({
+        // tạo 1 document mới trong firestore
+        title: blogTitleField.value,
+        article: articleField.value,
+        bannerImage: bannerPath,
+        publishedAt: `${date.getDate()} ${
+          months[date.getMonth()]
+        } ${date.getFullYear()}`,
+        author: auth.currentUser.email.split("@")[0], // this will return ["example", "gmail.com"]
+      })
+      .then(() => {
+        // redirect người dùng tới trang blog vừa tạo
+        location.href = `/${docName}`; // Đây là đường dẫn tuyệt đối
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
-
-  // Setting up docName: cần phải có trong database
-  let docName = `${blogTitle}-${id}`;
-  let date = new Date(); // for published at info
-
-  // truy cập firebase với biến db
-  db.collection("blogs")
-    .doc(docName)
-    .set({
-      // tạo 1 document mới trong firestore
-      title: blogTitleField.value,
-      article: articleField.value,
-      bannerImage: bannerPath,
-      publishedAt: `${date.getDate()} ${
-        months[date.getMonth()]
-      } ${date.getFullYear()}`,
-      author: auth.currentUser.email.split("@")[0], // this will return ["example", "gmail.com"]
-    })
-    .then(() => {
-      // redirect người dùng tới trang blog vừa tạo
-      location.href = `${docName}`;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
 });
 
 // checking for user logged in or not
@@ -118,3 +125,23 @@ auth.onAuthStateChanged((user) => {
     location.replace("/admin"); // this will re-direct to admin route if no one is logged in
   }
 });
+
+// Checking for existing blog edits
+let blogID = location.pathname.split("/");
+blogID.shift(); // it will remove first elements which is empty from the array
+
+if (blogID[0] != "editor") {
+  // means we are in existing blog edit route
+  let docRef = db.collection("blogs").doc(decodeURI(blogID[0]));
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      let data = doc.data();
+      bannerPath = data.bannerImage;
+      banner.style.backgroundImage = `url(${bannerPath})`;
+      blogTitleField.value = data.title;
+      articleField.value = data.article;
+    } else {
+      location.replace("/"); //home route
+    }
+  });
+}
