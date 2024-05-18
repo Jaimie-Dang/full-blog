@@ -15,3 +15,9 @@ let db = firebase.firestore();
 
 // Khởi tạo auth
 let auth = firebase.auth();
+
+// logout
+const logoutUser = () => {
+  auth.signOut();
+  location.reload();
+};
