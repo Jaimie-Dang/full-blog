@@ -12,3 +12,6 @@ firebase.initializeApp(firebaseConfig);
 
 // Khởi tạo database
 let db = firebase.firestore();
+
+// Khởi tạo auth
+let auth = firebase.auth();
