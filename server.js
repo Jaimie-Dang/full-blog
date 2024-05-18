@@ -42,6 +42,16 @@ app.post("/upload", (req, res) => {
   });
 });
 
+// Tạo blog
+app.get("/:blog", (req, res) => {
+  res.sendFile(path.join(initial_path, "blog.html"));
+});
+
+// Tạo 404 route
+app.use((req, res) => {
+  res.json("404");
+});
+
 // start server by "npm start"
 app.listen("3000", () => {
   console.log("Listening on Port: 3000");

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="" rel="stylesheet" />
+    <title>Blog:</title>
+    <!-- Nhúng css  -->
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/edit.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+  </head>
+  <body>
+    <!-- Copy the navbar from home.html and paste it into blog.html -->
+    <!-- blog-navbar -->
+    <nav class="navbar">
+      <img src="img/logo.png" class="logo" alt="brand" />
+      <ul class="links-container">
+        <li class="link-item"><a href="/" class="link">home</a></li>
+        <li class="link-item"><a href="/editor" class="link">editor</a></li>
+      </ul>
+    </nav>
+
+    <div class="banner"></div>
+
+    <div class="blog">
+      <h1 class="title"></h1>
+      <p class="published"><span> published at - </span></p>
+      <div class="article"></div>
+    </div>
+    <!-- Copy firebase links and paste them into blog.html -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-firestore.js"></script>
+
+    <script src="js/firebase.js"></script>
+  </body>
+</html>
