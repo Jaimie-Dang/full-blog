@@ -47,15 +47,28 @@ const createBlog = (blog) => {
   let data = blog.data();
   // Sử dụng DOM ảo đề chèn vào trang web (innerHTML)
   blogSection.innerHTML += `
-    <div class="blog-card">
-      <img src="${data.bannerImage}" class="blog-image" alt="">
-      <h1 class="blog-title">${data.title.substring(0, 100) + "..."}</h1>
-      <p class="blog-overview">${data.article.substring(0, 200) + "..."}</p>
-      <a href="/${blog.id}" class="btn dark">read</a>
-      <a href="/${blog.id}/editor" class="btn grey">edit</a>
-      <a href="/" onclick="deleteBlog('${
-        blog.id
-      }')" class="btn danger">delete</a>
-    </div>
+  <div class="blog-card">
+  <img src="${data.bannerImage}" class="blog-image" alt="">
+  <h1 class="blog-title">${data.title.substring(0, 100) + "..."}</h1>
+  <p class="blog-overview">${data.article.substring(0, 200) + "..."}</p>
+  <a href="/${blog.id}" class="btn dark">read</a>
+  <a href="/${blog.id}/editor" class="btn grey">edit</a>
+  <a href="#" onclick="deleteBlog('${blog.id}')" class="btn danger">delete</a>
+</div>
     `;
 };
+
+// Đảm bảo hàm deleteBlog có thể truy cập từ toàn cục
+const deleteBlog = (id) => {
+  db.collection("blogs")
+    .doc(id)
+    .delete()
+    .then(() => {
+      location.reload();
+    })
+    .catch((err) => {
+      console.log("Error deleting the blog", err);
+    });
+};
+
+window.deleteBlog = deleteBlog; // Đảm bảo hàm có thể truy cập từ toàn cục
