@@ -59,3 +59,54 @@ const addImage = (imagepath, alt) => {
     textToInsert +
     articleField.value.slice(curPos);
 };
+
+// Tạo mảng months
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+publishBtn.addEventListener("click", () => {
+  // generating id
+  let letters = "aabcfrgiwr";
+  let blogTitle = blogTitleField.value.split(" ").join("-");
+  let id = "";
+  for (let i = 0; i < 4; i++) {
+    // Math.floor: dùng để làm tròn số thập phân
+    id += letters[Math.floor(Math.random() * letters.length)];
+  }
+
+  // Setting up docName: cần phải có trong database
+  let docName = `${blogTitle}-${id}`;
+  let date = new Date(); // for published at info
+
+  // truy cập firebase với biến db
+  db.collection("blogs")
+    .doc(docName)
+    .set({
+      // tạo 1 document mới trong firestore
+      title: blogTitleField.value,
+      article: articleField.value,
+      bannerImage: bannerPath,
+      publishedAt: `${date.getDate()} ${
+        months[date.getMonth()]
+      } ${date.getFullYear()}`,
+    })
+    .then(() => {
+      // redirect người dùng tới trang blog vừa tạo
+      location.href = `${docName}`;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});

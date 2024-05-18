@@ -8,7 +8,7 @@ let firebaseConfig = {
   appId: "1:901647404908:web:22dd4ee39600286016ed49",
 };
 // Initialize Firebase
-firebaseConfig.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 // Khởi tạo database
 let db = firebase.firestore();
