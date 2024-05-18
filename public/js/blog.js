@@ -33,31 +33,34 @@ const setupBlog = (data) => {
   addArticle(article, data.article);
 };
 
+// Tính toán logic lấy dữ liệu + hình ảnh (bóc tách file/src)
 const addArticle = (art, data) => {
-  //split the article with enter "\n" and filter it to remove empty array
+  //tách một mảnh thành các dòng bằng ký tự xuống dòng \n + Các dòng trống được loại ra khỏi mảng
   data = data.split("\n").filter((item) => item.length);
 
-  // use forEach to loop through the data
+  // Sử dụng forEach để lặp qua dữ liệu
   data.forEach((item) => {
-    // check for heading
+    // Nếu dòng bắt đầu bằng ký tự #, nó được coi là tiêu đề
     if (item[0] == "#") {
+      // Số lượng tiêu đề liên tiếp xác định cấp độ tiêu đề <h1>, <h2>
       let hCount = 0;
       let i = 0;
       while (item[i] == "#") {
         hCount++;
         i++;
       }
-      //=> định nghĩa thẻ heading
+      //=> Thẻ tiêu đề HTML phù hợp được tạo động dựa trên cấp độ tiêu đề
       let tag = `h${hCount}`;
 
-      // Chèn thẻ tag vào article element
+      // Nội dung của tiêu đề (loại bỏ ký tự #) được trích xuất và chèn vào phần tử bài viết
       art.innerHTML += `<${tag}>${item.slice(hCount, item.length)}</${tag}>`;
     }
-    //checking for image format
+    //Nếu dòng bắt đầu bằng ![, nó được coi là hình ảnh
     else if (item[0] == "!" && item[1] == "[") {
       let seperator;
 
       for (let i = 0; i <= item.length; i++) {
+        // Mã kiểm tra dấu ] đóng và dấu ( mở để trích xuất văn bản thay thế và URL nguồn của hình ảnh.
         if (
           item[i] == "]" &&
           item[i + 1] == "(" &&
@@ -69,11 +72,12 @@ const addArticle = (art, data) => {
 
       let alt = item.slice(2, seperator);
       let src = item.slice(seperator + 2, item.length - 1);
+      // Văn bản thay thế và URL nguồn được sử dụng để tạo phần tử <img> trong bài viết
       art.innerHTML += `
         <img src="${src}" alt="${alt}" class="article-image">
         `;
     } else {
-      // add else where we make a "p" element
+      // Nếu dòng không phù hợp với định dạng tiêu đề hoặc hình ảnh, tạo một phần tử <p> (đoạn văn) với nội dung của dòng đó
       art.innerHTML += `<p>${item}</p>`;
     }
   });
